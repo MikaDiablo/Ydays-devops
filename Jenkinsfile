@@ -25,7 +25,7 @@ spec:
   serviceAccountName: jenkins
   containers:
   - name: pythonapp
-    image: gcr.io/cloud-builders/gcloud@sha256:b66e409cbd63927f2f5f9cb242e721e90d80f7c31b84f7d4679d530bb00aff39
+    image: python:latest
     command:
     - cat
     tty: true
@@ -69,7 +69,7 @@ spec:
           step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
           step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           echo 'To access your environment run `kubectl proxy`'
-          echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/${env.BRANCH_NAME}/services/${FE_SVC_NAME}:80/"
+          echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/ci-cd/services/${FE_SVC_NAME}:80/"
         }
       }
     }
