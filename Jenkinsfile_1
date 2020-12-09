@@ -9,7 +9,7 @@ pipeline {
     stage('test') {
       steps {
         sh "chmod +x -R ${env.WORKSPACE}"
-        sh "/var/jenkins_home/workspace/Python_App/hello_world.py"
+        sh './hello_world.py'
       }   
     }
   }
