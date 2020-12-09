@@ -25,7 +25,7 @@ spec:
   serviceAccountName: jenkins
   containers:
   - name: pythonapp
-    image: python:latest
+    image: gcr.io/cloud-builders/gcloud@sha256:b66e409cbd63927f2f5f9cb242e721e90d80f7c31b84f7d4679d530bb00aff39
     command:
     - cat
     tty: true
