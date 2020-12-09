@@ -7,7 +7,6 @@ RUN pip install flask
 EXPOSE 5000 
 RUN chmod +x /hello_world
 
-ENTRYPOINT ["/hello_world.py"]
 
 
 
