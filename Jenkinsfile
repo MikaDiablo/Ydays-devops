@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'node:6-alpine'
-            label 'docker'
             args '-p 3001:3001'
         }
     }
@@ -17,25 +16,19 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh "chmod +x -R ${env.WORKSPACE}"
                 sh './jenkins/scripts/test.sh'
             }
         }
         stage('Deliver') {
             steps {
+                sh "chmod +x -R ${env.WORKSPACE}"
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
         }
 
-        stage('SCM') {
-            git 'https://github.com/foo/bar.git'
-        }
-        
-        stage('SonarQube analysis') {
-            withSonarQubeEnv() { // Will pick the global server connection you have configured
-            sh './gradlew sonarqube'
-            }
-        } 
-    }
+    
+    } 
 }
