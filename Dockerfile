@@ -4,10 +4,10 @@ ADD hello_world.py /
 
 RUN pip install flask
 
-RUN python hello_world.py
-
 EXPOSE 5000 
+RUN chmod +x /hello_world
 
+ENTRYPOINT ["/hello_world.py"]
 
 
 
