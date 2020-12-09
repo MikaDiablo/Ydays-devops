@@ -1,7 +1,8 @@
 pipeline {
     agent {
-        kubernetes {
+        docker {
             image 'node:6-alpine'
+            label 'docker'
             args '-p 3001:3001'
         }
     }
