@@ -6,13 +6,12 @@ pipeline {
     FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:dev.${env.BUILD_NUMBER}"
+    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:dev_app.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
 
   agent {
     kubernetes {
-      label 'Python_App'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
