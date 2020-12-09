@@ -1,16 +1,15 @@
 pipeline {
-  agent { docker { image 'python:3.7.2' } }
-  stages {
-    stage('build') {
-      steps {
-        sh 'pip install -r requirements.txt'
-      }
+    agent {
+      dockerfile true
     }
-    stage('test') {
-      steps {
-        sh "chmod +x -R ${env.WORKSPACE}"
-        sh './hello_world.py'
-      }   
+
+    stages {
+        stage('Test') {
+            steps {
+                sh 'python --version'
+                
+            }
+        }
+
     }
-  }
 }
