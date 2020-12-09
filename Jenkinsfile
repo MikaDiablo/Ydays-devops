@@ -9,38 +9,9 @@ pipeline {
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:dev.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
-
-  agent {
-    kubernetes {
-      label 'Python_App'
-      defaultContainer 'build_app'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  containers:
-  - name: pythonapp
-    image: python:latest
-    command:
-    - cat
-    tty: true
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
-    command:
-    - cat
-    tty: true
-"""
-}
+agent {
+    dockerfile true
+    }
   }
   stages {
     
@@ -66,10 +37,10 @@ spec:
           // Don't use public load balancing for development branches
           //sh("sed -i.bak 's#LoadBalancer#ClusterIP#' ./k8s/services/frontend.yaml")
           //sh("sed -i.bak 's#gcr.io/cloud-solutions-images/Python_App:1.0.0#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
-          step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
-          step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
+          //step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          //step([$class: 'KubernetesEngineBuilder', namespace: "ci-cd", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           echo 'To access your environment run `kubectl proxy`'
-          echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/${env.BRANCH_NAME}/services/${FE_SVC_NAME}:80/"
+          echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/ci-cd/services/${FE_SVC_NAME}:80/"
         }
       }
     }
