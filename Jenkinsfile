@@ -13,7 +13,7 @@ pipeline {
   agent {
     kubernetes {
       label 'Python_App'
-      defaultContainer ''
+      defaultContainer 'build_app'
       yaml """
 apiVersion: v1
 kind: Pod
