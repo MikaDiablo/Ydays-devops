@@ -1,6 +1,0 @@
-2020-10-20_20:50:32.63790 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"Puma starting in cluster mode..."}
-2020-10-20_20:50:32.63793 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"* Version 4.3.5.gitlab.3 (ruby 2.6.6-p146), codename: Mysterious Traveller"}
-2020-10-20_20:50:32.63794 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"* Min threads: 4, max threads: 4"}
-2020-10-20_20:50:32.63794 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"* Environment: production"}
-2020-10-20_20:50:32.63794 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"* Process workers: 2"}
-2020-10-20_20:50:32.63794 {"timestamp":"2020-10-20T20:50:31.711Z","pid":462,"message":"* Preloading application"}

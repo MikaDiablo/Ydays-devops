@@ -1,0 +1,22 @@
+pipeline {
+    agent {
+      dockerfile true
+    }
+
+    stages {
+        stage('Test') {
+            steps {
+                sh 'python --version'
+                
+            }
+        }
+
+      stage('Deliver') {
+            steps {
+                
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
+    }
+}

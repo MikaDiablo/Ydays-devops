@@ -1,5 +1,0 @@
-2020-10-22_06:35:52.07420 time="2020-10-22T06:35:52Z" level=info msg="Established new database connection to \"/var/opt/gitlab/postgresql:5432\"." source="postgres_exporter.go:878"
-2020-10-22_06:35:53.21217 time="2020-10-22T06:35:53Z" level=info msg="Established new database connection to \"/var/opt/gitlab/postgresql:5432\"." source="postgres_exporter.go:878"
-2020-10-22_06:35:55.21276 time="2020-10-22T06:35:55Z" level=info msg="Established new database connection to \"/var/opt/gitlab/postgresql:5432\"." source="postgres_exporter.go:878"
-2020-10-22_06:35:58.21420 time="2020-10-22T06:35:58Z" level=error msg="Error opening connection to database (host=/var/opt/gitlab/postgresql%!u(MISSING)ser=gitlab-psql%!d(MISSING)atabase=gitlabhq_production): dial unix /var/opt/gitlab/postgresql/.s.PGSQL.5432: connect: permission denied" source="postgres_exporter.go:1474"
-2020-10-22_06:35:58.21450 time="2020-10-22T06:35:58Z" level=info msg="Starting Server: localhost:9187" source="postgres_exporter.go:1672"

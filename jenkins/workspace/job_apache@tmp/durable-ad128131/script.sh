@@ -1,1 +1,0 @@
-docker build -t 33750f2aba0be26c1e5c8c7332d21170cf287ecd -f "Dockerfile" "."

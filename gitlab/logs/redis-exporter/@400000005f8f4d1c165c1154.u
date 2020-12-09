@@ -1,4 +1,0 @@
-2020-10-20_20:45:29.79458 time="2020-10-20T20:45:29Z" level=info msg="Redis Metrics Exporter 1.6.1    build date:     sha1:     Go: go1.14.7    GOOS: linux    GOARCH: amd64"
-2020-10-20_20:45:29.79501 time="2020-10-20T20:45:29Z" level=info msg="Providing metrics at localhost:9121/metrics"
-2020-10-20_20:46:20.43190 time="2020-10-20T20:46:20Z" level=info msg="Redis Metrics Exporter 1.6.1    build date:     sha1:     Go: go1.14.7    GOOS: linux    GOARCH: amd64"
-2020-10-20_20:46:20.43309 time="2020-10-20T20:46:20Z" level=info msg="Providing metrics at localhost:9121/metrics"
