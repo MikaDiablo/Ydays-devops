@@ -1,3 +1,0 @@
-2020-10-21_08:57:12.79598 LOG:  listening on Unix socket "/var/opt/gitlab/postgresql/.s.PGSQL.5432"
-2020-10-21_08:57:12.83481 LOG:  database system was shut down at 2020-10-21 08:56:33 GMT
-2020-10-21_08:57:12.84496 LOG:  database system is ready to accept connections
