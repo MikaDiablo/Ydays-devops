@@ -24,7 +24,7 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
   containers:
-  - name: python_app
+  - name: pythonapp
     image: python:latest
     command:
     - cat
@@ -57,7 +57,7 @@ spec:
       // Developer Branches
       when {
         not { branch 'master' }
-        not { branch 'dev_app' }
+        not { branch 'dev' }
       }
       steps {
         container('kubectl') {
@@ -65,7 +65,7 @@ spec:
           sh("kubectl get ns ${env.BRANCH_NAME} || kubectl create ns ${env.BRANCH_NAME}")
           // Don't use public load balancing for development branches
           sh("sed -i.bak 's#LoadBalancer#ClusterIP#' ./k8s/services/frontend.yaml")
-          sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
+          sh("sed -i.bak 's#gcr.io/cloud-solutions-images/Python_App:1.0.0#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
           step([$class: 'KubernetesEngineBuilder', namespace: "${env.BRANCH_NAME}", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
           step([$class: 'KubernetesEngineBuilder', namespace: "${env.BRANCH_NAME}", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           echo 'To access your environment run `kubectl proxy`'
