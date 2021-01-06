@@ -9,7 +9,7 @@ pipeline {
   }
 
   agent {
-    kubernetes
+      none true
 
   }
   stages {
