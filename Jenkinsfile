@@ -1,7 +1,36 @@
 pipeline {
-    agent { 
-        node true 
-    }
+    agent {
+    kubernetes {
+        label hello_world
+        yaml """
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello-app
+        # Replace with your project ID
+        image: gcr.io/deft-manifest-297817/app:latest
+        # This app listens on port 81 for web traffic by default.
+        ports:
+        - containerPort: 81
+        env:
+          - name: PORT
+            value: "81"
+
+"""
+   }
+
     stages {
         stage('Deploy dev') {
             steps{
