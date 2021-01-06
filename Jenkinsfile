@@ -1,32 +1,32 @@
 pipeline {
     agent { 
-            kubernetes {
-        label podlabel
-        yaml """
-kind: Pod
+        kubernetes {
+            label hello
+            yaml """
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: jenkins-agent
+  name: app
 spec:
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
-    command:
-    - /busybox/cat
-    tty: true
-    volumeMounts:
-      - name: aws-secret
-        mountPath: /root/.aws/
-      - name: docker-registry-config
-        mountPath: /kaniko/.docker
-  restartPolicy: Never
-  volumes:
-    - name: aws-secret
-      secret:
-        secretName: aws-secret
-    - name: docker-registry-config
-      configMap:
-        name: docker-registry-config
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello-app
+        # Replace GCLOUD_PROJECT with your project ID
+        image: gcr.io/deft-manifest-297817/app:latest
+        # This app listens on port 81 for web traffic by default.
+        ports:
+        - containerPort: 81
+        env:
+          - name: PORT
+            value: "81"
 """
    } 
     }
