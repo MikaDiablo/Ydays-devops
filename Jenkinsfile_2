@@ -2,7 +2,7 @@ pipeline {
   agent {
       kubernetes {
          label 'hello_world'
-         yamlFile '/k8s/dev/deployment.yaml'
+         yamlFile 'k8s/dev/deployment.yaml'
      }
   }
   environment {
