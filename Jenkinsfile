@@ -10,12 +10,6 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
     }
     stages {
-        
-        stage("Checkout code"){
-          steps{
-             checkout scm
-            }
-        }
 
         stage('Deploy dev') {
             steps{
