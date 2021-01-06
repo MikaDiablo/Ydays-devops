@@ -1,6 +1,22 @@
 pipeline {
     agent any
+
+    environment {
+    PROJECT = "deft-manifest-297817"
+    APP_NAME = "Python_App"
+    FE_SVC_NAME = "${APP_NAME}-frontend"
+    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
+    CLUSTER_ZONE = "europe-west1-b"
+    JENKINS_CRED = "${PROJECT}"
+    }
     stages {
+        
+        stage("Checkout code"){
+          steps{
+             checkout scm
+            }
+        }
+
         stage('Deploy dev') {
             steps{
                 git url: 'https://github.com/MikaDiablo/Ydays-devops/'
@@ -13,8 +29,6 @@ pipeline {
                         verifyDeployments: true])
             }
         }
-    
-
         stage('Wait for SRE Approval') {
          steps{
            timeout(time:12, unit:'HOURS') {
