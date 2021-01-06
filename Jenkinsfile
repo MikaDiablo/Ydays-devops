@@ -1,13 +1,5 @@
 pipeline {
     agent any
-    
-    stages {
-       stage("Checkout code"){
-          steps{
-             checkout scm
-       }
-
-    }
     stages {
         stage('Deploy dev') {
             steps{
@@ -21,6 +13,14 @@ pipeline {
                         verifyDeployments: true])
             }
         }
+    
+       stage("Checkout code"){
+          steps{
+             checkout scm
+        }
+
+       }
+
         stage('Wait for SRE Approval') {
          steps{
            timeout(time:12, unit:'HOURS') {
