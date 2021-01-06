@@ -20,7 +20,7 @@ pipeline {
     }
     stage('Deploy  dev') {
       steps{
-        container('kubectl') {
+        container('gcloud') {
           sh("sed -i.bak 's#gcr.io/deft-manifest-297817/app:latest#' ./k8s/dev/deployment.yaml")
           step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
           
