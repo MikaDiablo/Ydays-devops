@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     PROJECT = "deft-manifest-297817"
-    APP_NAME = "Python_App"
+    APP_NAME = "hello"
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
