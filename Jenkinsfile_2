@@ -1,7 +1,7 @@
 pipeline {
   agent {
       kubernetes {
-         label 'hello_world'
+         label 'master'
          yamlFile 'k8s/dev/deployment.yaml'
      }
   }
