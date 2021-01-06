@@ -14,7 +14,7 @@ pipeline {
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
-          sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817/app ."
+          sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817/app"
         }
       }
     }
