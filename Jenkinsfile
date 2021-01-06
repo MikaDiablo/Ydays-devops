@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker true
+        kubernetes true
     }
     stages {
         stage('Deploy dev') {
