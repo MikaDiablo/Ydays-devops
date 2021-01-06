@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        default true
+        docker true
     }
     stages {
         stage('Deploy dev') {
