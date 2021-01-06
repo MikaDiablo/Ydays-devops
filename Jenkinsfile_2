@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-      kubernetes {
-         label 'master'
-         yamlFile 'k8s/dev/deployment.yaml'
-     }
-  }
+  agent none
 
   environment {
     PROJECT = "deft-manifest-297817"
@@ -17,6 +12,14 @@ pipeline {
   stages {
     
    stage('Deploy dev') {
+
+      agent {
+      kubernetes {
+         label 'master'
+         yamlFile 'k8s/dev/deployment.yaml'
+        }
+      } 
+
             steps{
                 git url: 'https://github.com/MikaDiablo/Ydays-devops/'
                 step([$class: 'KubernetesEngineBuilder', 
