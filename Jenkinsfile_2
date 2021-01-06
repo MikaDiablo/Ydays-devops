@@ -1,5 +1,7 @@
 pipeline {
-  agent none
+  agent {
+   kubernetes true 
+  {
 
   stages {
     
