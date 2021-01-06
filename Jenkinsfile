@@ -1,5 +1,11 @@
 pipeline {
-  agent any
+  agent {
+      kubernetes {
+         label 'hello_world'
+         yamlFile 'k8s/dev/deployment.yaml'
+     }
+  }
+
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "Python_App"
