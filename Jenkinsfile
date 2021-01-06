@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-      kubernetes {
-         label 'hello_world'
-         
-     }
-  }
+  agent any
 
   environment {
     PROJECT = "deft-manifest-297817"
