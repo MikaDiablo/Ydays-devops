@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent none
 
   environment {
     PROJECT = "deft-manifest-297817"
@@ -12,9 +12,10 @@ pipeline {
   stages {
     stage('Deploy  dev') {
       agent {
-      kubernetes {
-         label 'master'
-         yamlFile 'k8s/dev/deployment.yaml'
+        kubernetes {
+         cloud 'kubernetes'
+          label 'master'
+          yamlFile 'k8s/dev/deployment.yaml'
         }
       }
 
