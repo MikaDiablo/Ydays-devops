@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Deploy dev') {
             steps{
-                git url: 'https://github.com/MikaDiablo/Ydays-devops.git'
+                git url: 'https://github.com/MikaDiablo/Ydays-devops/tree/dev'
                 step([$class: 'KubernetesEngineBuilder', 
                         projectId: "deft-manifest-297817",
                         clusterName: "gke-cluster-ydays-default-pool-793d464d-grp",
