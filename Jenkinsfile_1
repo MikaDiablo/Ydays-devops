@@ -9,8 +9,6 @@ pipeline {
   }
 
  
-
-  }
   stages {
    agent none
     stage('Deploy  dev') {
