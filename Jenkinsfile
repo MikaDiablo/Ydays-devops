@@ -1,36 +1,35 @@
 pipeline {
-    agent {
-    kubernetes {
-        label hello_world
+    agent { 
+            kubernetes {
+        label podlabel
         yaml """
-apiVersion: apps/v1
-kind: Deployment
+kind: Pod
 metadata:
-  name: app
+  name: jenkins-agent
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: hello
-  template:
-    metadata:
-      labels:
-        app: hello
-    spec:
-      containers:
-      - name: hello-app
-        # Replace with your project ID
-        image: gcr.io/deft-manifest-297817/app:latest
-        # This app listens on port 81 for web traffic by default.
-        ports:
-        - containerPort: 81
-        env:
-          - name: PORT
-            value: "81"
-
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
+    volumeMounts:
+      - name: aws-secret
+        mountPath: /root/.aws/
+      - name: docker-registry-config
+        mountPath: /kaniko/.docker
+  restartPolicy: Never
+  volumes:
+    - name: aws-secret
+      secret:
+        secretName: aws-secret
+    - name: docker-registry-config
+      configMap:
+        name: docker-registry-config
 """
-   }
-
+   } 
+    }
     stages {
         stage('Deploy dev') {
             steps{
