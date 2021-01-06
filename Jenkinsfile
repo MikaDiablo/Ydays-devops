@@ -1,7 +1,10 @@
 pipeline {
-    
-    agent { label: "default" } 
-    
+    agent {
+        kubernetes true {
+            label hello
+
+    }
+  }
     stages {
         stage('Deploy dev') {
             steps{
