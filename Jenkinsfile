@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
   environment {
     PROJECT = "deft-manifest-297817"
