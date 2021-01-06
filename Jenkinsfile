@@ -1,35 +1,39 @@
 pipeline {
-    agent any
 
-    environment {
+  environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "Python_App"
-    FE_SVC_NAME = "${APP_NAME}-frontend"
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
-    }
-    stages {
+  }
 
-        stage('Deploy dev') {
-            steps{
-                git url: 'https://github.com/MikaDiablo/Ydays-devops/'
-                step([$class: 'KubernetesEngineBuilder', 
-                        projectId: "deft-manifest-297817",
-                        clusterName: "gke-cluster-ydays-default-pool-793d464d-grp",
-                        zone: "europe-west1-b",
-                        manifestPattern: 'k8s/dev/',
-                        credentialsId: "deft-manifest-297817",
-                        verifyDeployments: true])
-            }
+ 
+
+  agent {
+    kubernetes true
+
+  }
+  stages {
+    
+    stage('Build and push image with Container Builder') {
+      steps {
+        container('gcloud') {
+          sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817/app ."
         }
-        stage('Wait for SRE Approval') {
-         steps{
-           timeout(time:12, unit:'HOURS') {
-              input message:'Approve deployment?', submitter: 'sre-approvers'
-           }
-         }
-        }
-        
+      }
     }
+    stage('Deploy  dev') {
+      steps{
+        container('kubectl') {
+        // Change deployed image in canary to the one we just built
+          sh("sed -i.bak 's#gcr.io/deft-manifest-297817/app:latest#' ./k8s/dev/*.yaml")
+          step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
+          
+        }
+      }
+    }
+  
+    
+  }
 }
