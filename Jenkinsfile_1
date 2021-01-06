@@ -10,7 +10,7 @@ pipeline {
 
   agent { 
       node {
-        label 'py_app' 
+        label 'hello' 
  }
 
   }
