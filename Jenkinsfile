@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        kubernetes true
+        default true
     }
     stages {
         stage('Deploy dev') {
