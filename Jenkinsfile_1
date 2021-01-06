@@ -8,10 +8,7 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent { 
-      node {
-        label 'master' 
- }
+  agent default
 
   }
   stages {
