@@ -10,7 +10,7 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'sample-app'
+      label 'master'
       defaultContainer 'hello-world'
       yaml """
 apiVersion: v1
