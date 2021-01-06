@@ -12,7 +12,7 @@ pipeline {
     stage('Deploy  dev') {
        agent {
       kubernetes {
-         label 'app'
+         label 'master'
          yamlFile 'k8s/dev/deployment.yaml'
         }
       }
