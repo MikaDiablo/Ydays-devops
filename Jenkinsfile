@@ -1,5 +1,5 @@
 pipeline {
-
+  agent any
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "Python_App"
