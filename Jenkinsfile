@@ -1,5 +1,7 @@
 pipeline {
-    agent { label: kubernetes }
+    agent {
+        kubernetes true
+    }
     stages {
         stage('Deploy dev') {
             steps{
