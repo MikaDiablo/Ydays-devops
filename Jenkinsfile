@@ -14,12 +14,6 @@ pipeline {
             }
         }
     
-       stage("Checkout code"){
-          steps{
-             checkout scm
-        }
-
-       }
 
         stage('Wait for SRE Approval') {
          steps{
