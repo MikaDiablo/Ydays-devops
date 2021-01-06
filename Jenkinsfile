@@ -2,8 +2,7 @@ pipeline {
 
   environment {
     PROJECT = "deft-manifest-297817"
-    APP_NAME = "Python_App"
-    FE_SVC_NAME = "${APP_NAME}-frontend"
+    APP_NAME = "hello"
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
@@ -18,7 +17,7 @@ pipeline {
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
-          sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817 ."
+          sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817/app ."
         }
       }
     }
