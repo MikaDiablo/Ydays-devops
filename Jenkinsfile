@@ -1,7 +1,6 @@
 pipeline {
     agent {
         kubernetes true {
-            label hello
 
     }
   }
