@@ -10,11 +10,12 @@ pipeline {
   }
 
   stages {
-    agent {
+    stage('Deploy  dev') {
+        agent {
        kubernetes true
 
    }
-    stage('Deploy  dev') {
+
       steps{
         container('gcloud') {
           sh("sed -i.bak 's#gcr.io/deft-manifest-297817/app:latest#' ./k8s/dev/deployment.yaml")
