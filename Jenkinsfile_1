@@ -1,5 +1,5 @@
 pipeline {
-
+  agent none
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "Python_App"
@@ -8,14 +8,11 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent {
-    kubernetes true
-
-  }
+ 
 
   }
   stages {
-
+   agent none
     stage('Deploy  dev') {
       steps{
         container('kubectl') {
