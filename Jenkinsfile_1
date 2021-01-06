@@ -8,7 +8,10 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent default
+  agent {
+    kubernetes true
+
+  }
 
   }
   stages {
