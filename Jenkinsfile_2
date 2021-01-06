@@ -21,7 +21,7 @@ pipeline {
           sh "gcloud builds submit --tag gcr.io/project-id/deft-manifest-297817/app ."
         }
       }
-
+   }
    stage('Deploy dev') {
             steps{
                 git url: 'https://github.com/MikaDiablo/Ydays-devops/'
