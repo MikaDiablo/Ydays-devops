@@ -8,7 +8,12 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent any
+  agent { 
+      node {
+        label 'py_app' 
+ }
+
+  }
   stages {
 
     stage('Deploy  dev') {
