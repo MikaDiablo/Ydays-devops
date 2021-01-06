@@ -1,5 +1,5 @@
 pipeline {
-    agent { label: "default" }
+    agent { label: "kubernetes" }
     stages {
         stage('Deploy dev') {
             steps{
