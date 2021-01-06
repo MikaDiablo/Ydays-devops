@@ -1,14 +1,6 @@
 pipeline {
   agent none
 
-  environment {
-    PROJECT = "deft-manifest-297817"
-    APP_NAME = "Python_App"
-    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
-    CLUSTER_ZONE = "europe-west1-b"
-    JENKINS_CRED = "${PROJECT}"
-  }
-
   stages {
     
    stage('Deploy dev') {
@@ -21,7 +13,7 @@ pipeline {
       } 
 
             steps{
-               
+                git url: 'https://github.com/MikaDiablo/Ydays-devops/'   
                 step([$class: 'KubernetesEngineBuilder', 
                         projectId: "deft-manifest-297817",
                         clusterName: "gke-cluster-ydays-default-pool-793d464d-grp",
