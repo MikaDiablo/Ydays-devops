@@ -5,6 +5,7 @@ pipeline {
          yamlFile 'k8s/dev/deployment.yaml'
      }
   }
+
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "Python_App"
@@ -17,14 +18,14 @@ pipeline {
     
    stage('Deploy dev') {
             steps{
-                git url: 'https://github.com/MikaDiablo/Ydays-devops.git'
+                git url: 'https://github.com/MikaDiablo/Ydays-devops/'
                 step([$class: 'KubernetesEngineBuilder', 
                         projectId: "deft-manifest-297817",
                         clusterName: "gke-cluster-ydays-default-pool-793d464d-grp",
                         zone: "europe-west1-b",
                         manifestPattern: 'k8s/dev/',
                         credentialsId: "deft-manifest-297817",
-                        verifyDeployments: true])
+                        verifyDeployments: false])
             }
         }
     }
