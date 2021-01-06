@@ -11,10 +11,13 @@ pipeline {
 
   stages {
     stage('Deploy  dev') {
-        agent {
-       kubernetes true
+      agent {
+      kubernetes {
+         label 'master'
+         yamlFile 'k8s/dev/deployment.yaml'
+        }
+      }
 
-   }
 
       steps{
         container('gcloud') {
