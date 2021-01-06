@@ -1,6 +1,6 @@
 pipeline {
     agent { 
-        none true 
+        node true 
     }
     stages {
         stage('Deploy dev') {
