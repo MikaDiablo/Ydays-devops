@@ -18,7 +18,7 @@ spec:
         image: gcr.io/deft-manifest-297817/app:latest
         # This app listens on port 81 for web traffic by default.
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
         env:
           - name: PORT
-            value: "8080"
+            value: "8081"
