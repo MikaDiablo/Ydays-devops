@@ -21,7 +21,7 @@ pipeline {
       } 
 
             steps{
-                git url: 'https://github.com/MikaDiablo/Ydays-devops/'
+               
                 step([$class: 'KubernetesEngineBuilder', 
                         projectId: "deft-manifest-297817",
                         clusterName: "gke-cluster-ydays-default-pool-793d464d-grp",
