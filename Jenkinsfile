@@ -8,10 +8,6 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent {
-    kubernetes true
-
-  }
   stages {
     
     stage('Build and push image with Container Builder') {
