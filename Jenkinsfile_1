@@ -13,7 +13,7 @@ pipeline {
        agent {
       kubernetes {
          label 'master'
-         yamlFile '/k8s/dev/deployment.yaml'
+         yamlFile 'app/k8s/dev/deployment.yaml'
         }
       }
 
