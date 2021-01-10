@@ -28,7 +28,7 @@ pipeline {
 
       steps{
         container('hello-app') {
-          sh("sed -i.bak 's#gcr.io/deft-manifest-297817/app:latest#' ./k8s/dev/*.yaml")
+          sh("sed -i.bak 's#gcr.io/deft-manifest-297817/github.com/mikadiablo/ydays-devops@sha256:29b77459cb59d9b202a369570ace272a90d74ef2128946520968845a52cb6a72#' ./k8s/dev/*.yaml")
           step([$class: 'KubernetesEngineBuilder', namespace:'dev', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         }
