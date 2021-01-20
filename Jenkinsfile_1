@@ -12,8 +12,8 @@ pipeline {
 
    agent {
     kubernetes {
-      inheritFrom 'jenkins-slave'
-      label 'gke'
+      inheritFrom 'jenkins'
+      label 'slave'
       defaultContainer 'jenkins-slave'
       yaml """
 apiVersion: v1
@@ -49,7 +49,7 @@ spec:
   stage('Deploy dev') {
       
 	  steps{
-            container('jenkins-slave'){        
+            container('hello-world'){        
              step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         }
