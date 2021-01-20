@@ -30,16 +30,7 @@ pipeline {
     }
  
 
-    stage('Build and push image with Container Builder') {
-      steps {
-         withCredentials([file(credentialsId: 'gke_secret_file', variable: 'GC_KEY')]) {
-                      sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
-                       }        
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-           
-     }
-   }
-   
+       
 
     stage('Deploy dev') {
       
