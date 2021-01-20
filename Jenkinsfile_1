@@ -12,7 +12,7 @@ pipeline {
 
    agent {
     kubernetes {
-      label 'master'
+      inheritFrom 'master'
       defaultContainer 'jenkins-slave'
       yaml """
 apiVersion: v1
@@ -22,7 +22,7 @@ metadata:
 spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: jenkins
-  
+  containers:
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
     command:
