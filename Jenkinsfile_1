@@ -15,8 +15,9 @@ pipeline {
 
    stage('Checkout Source') {
       steps {
-        git url:'https://github.com/MikaDiablo/Ydays-devops/', branch:'dev'
+        checkout scm
       }
+
     }
 
     stage('Build and push image with Container Builder') {
