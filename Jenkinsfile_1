@@ -6,7 +6,7 @@ pipeline {
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+   
     
   }
 
@@ -17,7 +17,7 @@ pipeline {
     stage('Build and push image with Container Builder') {
       steps {
         
-          sh "gcloud builds submit --tag=${IMAGE_TAG} gcr.io/deft-manifest-297817/helloworld-py ."
+          sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py ."
         
       }
     }
