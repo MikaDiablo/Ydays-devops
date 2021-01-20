@@ -10,7 +10,7 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'slave'
+      label 'master'
       defaultContainer 'jenkins-slave'
       
     }
