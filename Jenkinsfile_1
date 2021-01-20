@@ -44,7 +44,7 @@ spec:
     
     stage('Build and push image with Container Builder') {
       steps {
-         container('jenkins-slave') {     
+         container('gcloud') {     
           sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
         }
       }
@@ -55,7 +55,7 @@ spec:
   stage('Deploy dev') {
       
 	  steps{
-        container('hello-app') {
+        container('kubectl') {
           step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         }
