@@ -1,22 +1,29 @@
-pipeline {
-  
-  agent any
-  
-  environment {
-    PROJECT = "deft-manifest-297817"
-    APP_NAME = "hello"
-    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
-    CLUSTER_ZONE = "europe-west1-b"
-    JENKINS_CRED = "${PROJECT}"
-  }
+#!/usr/bin/groovy
+
+
+
  
-  stages {
+podTemplate(label: 'jenkins', yaml: """
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: default
+  containers:
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
+"""
+  ) {
+
+  node('jenkins') {
    
  
   stage('Test -  Execution of gcloud command') {
-      
+      container('gcloud') {
         sh "gcloud compute zones --help"
-      
+      }
     }
 
  
@@ -31,9 +38,9 @@ pipeline {
 
     stage('Build and push image with Container Builder') {
       steps {
-        
+        container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-           
+       }     
      }
    }
    
