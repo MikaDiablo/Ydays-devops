@@ -15,7 +15,7 @@ pipeline {
 
    stage('Checkout Source') {
       steps {
-        git url:'https://github.com/MikaDiablo/Ydays-devops.git', branch:'dev'
+        git url:'https://github.com/MikaDiablo/Ydays-devops/', branch:'dev'
       }
     }
 
