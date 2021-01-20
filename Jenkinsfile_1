@@ -1,5 +1,5 @@
 pipeline {
-  agent any 
+  
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "hello"
@@ -8,6 +8,29 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     
+  }
+
+  agent {
+    kubernetes {
+      label 'jenkins'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+labels:
+  component: ci
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: default
+  containers:
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
+  
+"""
+}
   }
 
 
@@ -22,7 +45,9 @@ pipeline {
 
     stage('Build and push image with Container Builder') {
       steps {
+        container {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
+       }     
      }
    }
    
