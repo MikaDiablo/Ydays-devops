@@ -13,23 +13,8 @@ pipeline {
     agent {
     kubernetes {
       label 'hello-app'
-      defaultContainer 'jnlp'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
-"""
+      defaultContainer 'jenkins-slave'
+      
 }
   }
 
@@ -37,7 +22,7 @@ spec:
     
     stage('Build and push image with Container Builder') {
       steps {
-         container('gcloud') {     
+         container('jenkins-slave') {     
           sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
         }
       }
