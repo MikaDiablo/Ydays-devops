@@ -12,7 +12,7 @@ pipeline {
 
   agent {
     kubernetes {
-      inheritFrom 'jenkins-slave'
+      label 'jenkins-slave'
       yaml """
 apiVersion: v1
 kind: Pod
@@ -30,13 +30,6 @@ spec:
 }
   }
 
-  node(jenkins-slave){
-    stage('Build and push image with Container Builder') {
-       container('gcloud') {
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-        }
-     }
-   }
 
   stages {
     
@@ -47,6 +40,12 @@ spec:
       }
 
     }
+
+      stage('Build and push image with Container Builder') {
+       container('gcloud') {
+          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
+     }
+   }
    
 
     stage('Deploy dev') {
