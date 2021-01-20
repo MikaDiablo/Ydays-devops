@@ -16,9 +16,10 @@ pipeline {
     
     stage('Build and push image with Container Builder') {
       steps {
-              
+         container('hello-app'){     
           sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
-      }
+         }
+	}
     }
     
 
@@ -26,10 +27,10 @@ pipeline {
   stage('Deploy dev') {
       
 	  steps{
-        
-            step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
+            container('hello-app'){        
+             step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
-        
+        }
       }
     }
 
