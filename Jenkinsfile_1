@@ -7,6 +7,7 @@ podTemplate(label: 'jenkins', yaml: """
 apiVersion: v1
 kind: Pod
 spec:
+  serviceAccountName: default
   containers:
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
