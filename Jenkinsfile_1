@@ -10,29 +10,22 @@ pipeline {
     
   }
 
-  agent {
-    kubernetes {
-      label 'jenkins'
-      yaml """
+  def label = "gcloud-command-${UUID.randomUUID().toString()}"
+
+podTemplate(label: label, yaml: """
 apiVersion: v1
 kind: Pod
-metadata:
-labels:
-  component: ci
 spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: default
   containers:
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
     command:
     - cat
     tty: true
-  
 """
-}
-  }
+  ) {
 
+ 
 
   stages {
     
@@ -42,6 +35,15 @@ spec:
       }
 
     }
+  
+  node(label) {
+    stage('Test -  Execution of gcloud command') {
+      container('gcloud') {
+        sh "gcloud compute zones --help"
+      }
+    }
+
+  }
 
     stage('Build and push image with Container Builder') {
       steps {
