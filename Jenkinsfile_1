@@ -1,6 +1,6 @@
 pipeline {
    
- agent any
+  agent any
 
   environment {
     PROJECT = "deft-manifest-297817"
@@ -12,11 +12,34 @@ pipeline {
     
   }
 
+   agent {
+    kubernetes {
+      label 'master'
+      defaultContainer 'jenkins-slave'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: jenkins
+  
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
+"""
+}
+  }
+
+
   stages {
     
     stage('Build and push image with Container Builder') {
       steps {
-         container('jenkins-slave'){     
+         container('gcloud'){     
           sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
          }
 	}
@@ -27,7 +50,7 @@ pipeline {
   stage('Deploy dev') {
       
 	  steps{
-            container('hello-app'){        
+            container('jenkins-slave'){        
              step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         }
