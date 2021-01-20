@@ -39,7 +39,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'gke_secret_file', variable: 'GC_KEY')]) {
                       sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
                        }
-             sh("sed -i.bak 's#docker pull gcr.io/${PROJECT}/${APP_NAME}:latest#' ./k8s/dev/*.yaml")
+             sh("sed -i.bak 's#gcr.io/deft-manifest-297817/hello:latest#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
              step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         
