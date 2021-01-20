@@ -1,5 +1,5 @@
 pipeline {
- 
+  agent any 
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "hello"
@@ -10,17 +10,9 @@ pipeline {
     
   }
 
-  agent {
-    kubernetes {
-      label 'jenkins-slave'
-      
-   }
-  }
-
 
   stages {
     
-
    stage('Checkout Source') {
       steps {
         checkout scm
@@ -30,9 +22,7 @@ pipeline {
 
     stage('Build and push image with Container Builder') {
       steps {
-       container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-      }
      }
    }
    
