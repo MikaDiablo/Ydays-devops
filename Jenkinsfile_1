@@ -6,29 +6,40 @@ pipeline {
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
+    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+    
   }
 
-  agent {
-    kubernetes {
-      label 'master'
-      defaultContainer 'jenkins-slave'
-      
-    }
-  }
- 
+  agent any
+
   stages {
 
+    stage('Checkout Source') {
+      steps {
+        git url:'https://github.com/MikaDiablo/Ydays-devops.git', branch:'dev'
+      }
+    }
+    
+    stage('Build and push image with Container Builder') {
+      steps {
+        
+          sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py .${IMAGE_TAG} ."
+        
+      }
+    }
+    
 
-    stage('Deploy  dev') {
+    
+  stage('Deploy dev') {
       
-	steps{
+	  steps{
         container('hello-app') {
-          sh("sed -i.bak 's#docker pull gcr.io/deft-manifest-297817/app:latest#' ./k8s/dev/*.yaml")
           step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
           
         }
       }
     }
-    
+
   }
+
 }
