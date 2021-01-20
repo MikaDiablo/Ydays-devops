@@ -1,8 +1,15 @@
 def label = "gcloud-command-${UUID.randomUUID().toString()}"
-pipeline {
+environment {
+    PROJECT = "deft-manifest-297817"
+    APP_NAME = "hello"
+    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
+    CLUSTER_ZONE = "europe-west1-b"
+    JENKINS_CRED = "${PROJECT}"
+    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
- agent any
- podTemplate(label: label, yaml: """
+  }
+ 
+podTemplate(label: label, yaml: """
 apiVersion: v1
 kind: Pod
 spec:
@@ -16,29 +23,15 @@ spec:
   ) {
 
   node(label) {
-    stage('Test -  Execution of gcloud command') {
+   
+ 
+  stage('Test -  Execution of gcloud command') {
       container('gcloud') {
         sh "gcloud compute zones --help"
       }
     }
 
-  }
- }
  
-   
-  environment {
-    PROJECT = "deft-manifest-297817"
-    APP_NAME = "hello"
-    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
-    CLUSTER_ZONE = "europe-west1-b"
-    JENKINS_CRED = "${PROJECT}"
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-    
-  }
-
-
- 
-
   stages {
     
    stage('Checkout Source') {
