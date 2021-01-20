@@ -12,8 +12,7 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'pip_ydays'
-      defaultContainer 'jenkins-slave'
+      inheritFrom 'jenkins-slave'
       yaml """
 apiVersion: v1
 kind: Pod
