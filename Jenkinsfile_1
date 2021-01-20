@@ -1,3 +1,5 @@
+pipeline {
+
 podTemplate(label: label, yaml: """
 apiVersion: v1
 kind: Pod
@@ -20,7 +22,6 @@ spec:
 
   }
 
-pipeline {
   
   environment {
     PROJECT = "deft-manifest-297817"
