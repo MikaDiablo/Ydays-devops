@@ -17,7 +17,7 @@ pipeline {
     stage('Build and push image with Container Builder') {
       steps {
         
-          sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py ."
+          sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
         
       }
     }
