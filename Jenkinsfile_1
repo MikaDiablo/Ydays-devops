@@ -6,7 +6,7 @@ pipeline {
     CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
     CLUSTER_ZONE = "europe-west1-b"
     JENKINS_CRED = "${PROJECT}"
-   
+    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     
   }
 
@@ -45,18 +45,14 @@ spec:
 
     stage('Build and push image with Container Builder') {
       steps {
-        container('gcloud'){
-         withCredentials([file(credentialsId: 'gke_secret_file', variable: 'GC_KEY')]) {
-                      sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
-                       }             
-          sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
+        container('gcloud') {
+          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
         }
-	}
+      }
     }
-    
+   
 
-    
-  stage('Deploy dev') {
+    stage('Deploy dev') {
       
 	  steps{
                 
