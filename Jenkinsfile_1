@@ -13,6 +13,7 @@ pipeline {
    agent {
     kubernetes {
       inheritFrom 'jenkins-slave'
+      label 'gke'
       defaultContainer 'jenkins-slave'
       yaml """
 apiVersion: v1
