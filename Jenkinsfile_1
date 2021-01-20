@@ -22,7 +22,9 @@ pipeline {
 
     stage('Build and push image with Container Builder') {
       steps {
-             
+         withCredentials([file(credentialsId: 'gke-service-account', variable: 'GC_KEY')]) {
+                      sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                       }             
           sh "gcloud builds submit --tag gcr.io/deft-manifest-297817/helloworld-py:latest ."
         
 	}
