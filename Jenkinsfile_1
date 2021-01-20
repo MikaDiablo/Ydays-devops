@@ -1,3 +1,5 @@
+#!/usr/bin/groovy
+
 def label = "gcloud-command-${UUID.randomUUID().toString()}"
 
  
