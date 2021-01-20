@@ -30,6 +30,14 @@ spec:
 }
   }
 
+  node(jenkins-slave){
+    stage('Build and push image with Container Bui$
+       container('gcloud') {
+          sh "PYTHONUNBUFFERED=1 gcloud builds sub$
+        }
+     }
+   }
+
   stages {
     
 
@@ -40,13 +48,6 @@ spec:
 
     }
    
-  node(jenkins-slave){
-    stage('Build and push image with Container Builder') {
-       container('gcloud') {
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
-        }
-     }
-   }
 
     stage('Deploy dev') {
       
