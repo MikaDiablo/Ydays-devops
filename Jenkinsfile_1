@@ -1,3 +1,25 @@
+podTemplate(label: label, yaml: """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
+"""
+  ) {
+
+  node(label) {
+    stage('Test -  Execution of gcloud command') {
+      container('gcloud') {
+        sh "gcloud compute zones --help"
+      }
+    }
+
+  }
+
 pipeline {
   
   environment {
@@ -11,20 +33,6 @@ pipeline {
   }
 
 
-
-podTemplate(label: jenkins, yaml: """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
-"""
-  ) {
-
  
 
   stages {
@@ -35,15 +43,7 @@ spec:
       }
 
     }
-  
-  node(jenkins) {
-    stage('Test -  Execution of gcloud command') {
-      container('gcloud') {
-        sh "gcloud compute zones --help"
-      }
-    }
-
-  }
+ 
 
     stage('Build and push image with Container Builder') {
       steps {
