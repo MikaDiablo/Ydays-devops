@@ -1,6 +1,8 @@
+def label = "gcloud-command-${UUID.randomUUID().toString()}"
 pipeline {
 
-podTemplate(label: label, yaml: """
+ agent any
+ podTemplate(label: label, yaml: """
 apiVersion: v1
 kind: Pod
 spec:
@@ -22,7 +24,8 @@ spec:
 
   }
  }
-  
+ 
+   
   environment {
     PROJECT = "deft-manifest-297817"
     APP_NAME = "hello"
