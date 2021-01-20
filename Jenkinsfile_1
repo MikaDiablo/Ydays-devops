@@ -10,9 +10,9 @@ pipeline {
     
   }
 
-  def label = "gcloud-command-${UUID.randomUUID().toString()}"
 
-podTemplate(label: label, yaml: """
+
+podTemplate(label: jenkins, yaml: """
 apiVersion: v1
 kind: Pod
 spec:
@@ -36,7 +36,7 @@ spec:
 
     }
   
-  node(label) {
+  node(jenkins) {
     stage('Test -  Execution of gcloud command') {
       container('gcloud') {
         sh "gcloud compute zones --help"
