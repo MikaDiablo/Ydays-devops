@@ -21,7 +21,7 @@ spec:
     }
 
   }
-
+ }
   
   environment {
     PROJECT = "deft-manifest-297817"
