@@ -16,7 +16,7 @@ pipeline {
         stage('Build and push image with Container Builder') {
       steps {
           script {
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
+          sh "gcloud builds submit --tag gcr.io/universal-torch-305711/helloworld-gke:latest ."
         }
       }
     }
