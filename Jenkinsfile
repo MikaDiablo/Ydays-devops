@@ -1,46 +1,35 @@
 pipeline {
-  
-  agent any
-  
-  environment {
-    PROJECT = "universal-torch-305711"
-    APP_NAME = "hello"
-    CLUSTER = "gke-cluster-ydays-default-pool-2c9b84aa-grp"
-    CLUSTER_ZONE = "us-west1-b"
-    JENKINS_CRED = "${PROJECT}"
-    CREDENTIALS_ID = 'Kubernetes-ydays'
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:latest"
-  }
- 
-  stages {
-  
+    agent { label: "default" }
+    stages {
+        stage('Deploy to dev') {
+            steps{
+                git url: 'https://github.com/viglesiasce/sample-app'
+                step([$class: 'KubernetesEngineBuilder', 
+                        projectId: "universal-torch-305711",
+                        clusterName: "gke-cluster-ydays-default-pool-2c9b84aa-grp",
+                        zone: "us-west1-b",
+                        manifestPattern: 'k8s/dev/',
+                        credentialsId: 'Kubernetes-ydays',
+                        IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:latest"
+                        verifyDeployments: true])
+            }
+        }
 
- 
-    
-   stage('Checkout Source') {
+        stage('Build and push image with Container Builder') {
       steps {
-        checkout scm
-      }
-
-    }
- 
-
-       
-
-    stage('Deploy dev') {
-      
-	  steps{
-                withCredentials([file(credentialsId: 'Kubernetes-ydays', variable: 'GC_KEY')]) {
-                    sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
-                    sh("gcloud container clusters get-credentials prod --zone us-west1-b --project ${project}")
-                 }
-             sh("docker pull gcr.io/universal-torch-305711/helloworld-py:latest")
-             step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: 'Kubernetes-ydays', verifyDeployments: true])
-          
         
-      }
+          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
+       
+     }
+   }
+
+        stage('Wait for SRE Approval') {
+         steps{
+           timeout(time:12, unit:'HOURS') {
+              input message:'Approve deployment?', submitter: 'sre-approvers'
+           }
+         }
+        }
+        
     }
-
-  }
-
 }
