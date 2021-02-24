@@ -23,8 +23,9 @@ pipeline {
         
         stage('Deploy to GKE') {
             steps{
-                sh "sed -i '/gcr.io/universal-torch-305711/helloworld-gke:latest' k8/dev/"
-                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'universal-torch-305711', clusterName: 'gke-cluster-ydays-default-pool-2c9b84aa-grp', zone: 'us-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'Kubernetes-ydays', verifyDeployments: false])
+                sh "kubectl create deployment hello-app --image=gcr.io/universal-torch-305711/helloworld-gke:latest"
+                sh "kubectl scale deployment hello-app --replicas=2"
+                
 
             }
         }
