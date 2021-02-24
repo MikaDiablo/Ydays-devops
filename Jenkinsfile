@@ -24,7 +24,8 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
                 sh("sed -i.bak 's#gcr.io/universal-torch-305711/helloworld-gke:latest#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
-                 step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev/', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'universal-torch-305711', clusterName: 'gke-cluster-ydays-default-pool-2c9b84aa-grp', zone: 'us-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'Kubernetes-ydays', verifyDeployments: true])
+
             }
         }
     }    
