@@ -2,6 +2,8 @@
 
 kubernetes on GCP
 
-Mina Bekhit 
+Mina Bekhit
+
 Maeva Champrigaud
+
 Papekhaly Faye
