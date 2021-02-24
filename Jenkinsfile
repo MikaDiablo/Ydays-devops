@@ -36,11 +36,11 @@ pipeline {
     stage('Deploy dev') {
       
 	  steps{
-                withCredentials([file(credentialsId: 'gke_secret_file', variable: 'GC_KEY')]) {
+                withCredentials([file(credentialsId: 'Kubernetes-ydays', variable: 'GC_KEY')]) {
                       sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
                        }
-             sh("docker pull gcr.io/deft-manifest-297817/helloworld-py:latest")
-             step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: 'gke-service-account', verifyDeployments: true])
+             sh("docker pull gcr.io/universal-torch-305711/helloworld-py:latest")
+             step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: 'Kubernetes-ydays', verifyDeployments: true])
           
         
       }
