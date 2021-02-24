@@ -21,7 +21,7 @@ labels:
   component: ci
 spec:
   # Use service account that can deploy to all namespaces
-  serviceAccountName: Compute Engine default service account
+  serviceAccountName: default
   containers:
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
