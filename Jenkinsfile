@@ -3,7 +3,6 @@ pipeline {
   environment {
     PROJECT = "universal-torch-305711"
     APP_NAME = "app"
-    clusterName: "gke-cluster-ydays-default-pool-2c9b84aa-grp"
     CLUSTER = "gke-cluster-ydays-default-pool-2c9b84aa-grp"
     CLUSTER_ZONE = "us-west1-b"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
