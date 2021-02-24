@@ -3,12 +3,12 @@ pipeline {
   agent any
   
   environment {
-    PROJECT = "deft-manifest-297817"
+    PROJECT = "universal-torch-305711"
     APP_NAME = "hello"
-    CLUSTER = "gke-cluster-ydays-default-pool-793d464d-grp"
-    CLUSTER_ZONE = "europe-west1-b"
+    CLUSTER = "gke-cluster-ydays-default-pool-2c9b84aa-grp"
+    CLUSTER_ZONE = "us-west1-b"
     JENKINS_CRED = "${PROJECT}"
-    CREDENTIALS_ID = 'gke_secret_file'
+    CREDENTIALS_ID = 'Kubernetes-ydays'
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:latest"
   }
  
@@ -49,4 +49,3 @@ pipeline {
   }
 
 }
-
