@@ -23,7 +23,7 @@ pipeline {
         
         stage('Deploy to GKE') {
             steps{
-                sh("sed -i.bak 's#gcr.io/universal-torch-305711/helloworld-py:latest#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
+                sh("sed -i.bak 's#gcr.io/universal-torch-305711/helloworld-gke:latest#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
                  step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev/', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
             }
         }
