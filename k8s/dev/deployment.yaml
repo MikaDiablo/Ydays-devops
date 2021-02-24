@@ -16,7 +16,7 @@ spec:
       containers:
       - name: hello-app
         # Replace GCLOUD_PROJECT with your project ID
-        image: gcr.io/universal-torch-305711/helloworld-py:latest
+        image: gcr.io/universal-torch-305711/helloworld-gke:latest
         # This app listens on port 81 for web traffic by default.
         ports:
         - containerPort: 8081
