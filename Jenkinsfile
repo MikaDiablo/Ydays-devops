@@ -10,19 +10,11 @@ pipeline {
                         zone: "us-west1-b",
                         manifestPattern: 'k8s/dev/',
                         credentialsId: 'Kubernetes-ydays',
-                        IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:latest"
                         verifyDeployments: true])
             }
         }
 
-        stage('Build and push image with Container Builder') {
-      steps {
-        
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${IMAGE_TAG} ."
        
-     }
-   }
-
         stage('Wait for SRE Approval') {
          steps{
            timeout(time:12, unit:'HOURS') {
