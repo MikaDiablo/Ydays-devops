@@ -13,13 +13,7 @@ pipeline {
   }
  
   stages {
-   
- 
-  stage('Test -  Execution of gcloud command') {
-    steps{  
-        sh "gcloud compute zones --help"
-      }
-    }
+  
 
  
     
