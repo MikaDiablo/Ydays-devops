@@ -3,6 +3,7 @@ pipeline {
     environment {
         PROJECT_ID = "universal-torch-305711"
         CLUSTER_NAME = 'cluster-ydays'
+        IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BUILD_NUMBER}"
         LOCATION = 'us-west1-b'
         CREDENTIALS_ID = 'Kubernetes-ydays'
     }
