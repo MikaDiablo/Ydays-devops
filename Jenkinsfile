@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Deploy to dev') {
             steps{
-                git url: 'https://github.com/viglesiasce/sample-app'
+                git url: 'https://github.com/MikaDiablo/Ydays-devops'
                 step([$class: 'KubernetesEngineBuilder', 
                         projectId: "universal-torch-305711",
                         clusterName: "gke-cluster-ydays-default-pool-2c9b84aa-grp",
