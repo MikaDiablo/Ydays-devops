@@ -14,8 +14,15 @@ pipeline {
  
   stages {
    
+ 
+  stage('Test -  Execution of gcloud command') {
+    steps{  
+        sh "gcloud compute zones --help"
+      }
+    }
 
-   
+ 
+    
    stage('Checkout Source') {
       steps {
         checkout scm
@@ -30,8 +37,9 @@ pipeline {
       
 	  steps{
                 withCredentials([file(credentialsId: 'Kubernetes-ydays', variable: 'GC_KEY')]) {
-                      sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
-                       }
+                    sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                    sh("gcloud container clusters get-credentials prod --zone us-west1-b --project ${project}")
+                 }
              sh("docker pull gcr.io/universal-torch-305711/helloworld-py:latest")
              step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: '/k8s/dev', credentialsId: 'Kubernetes-ydays', verifyDeployments: true])
           
