@@ -1,5 +1,6 @@
-# Devops_ci_cd
-M2 cours DevOps
+# Projet ydays
+
+kubernetes on GCP
 
 Mina Bekhit 
 Maeva Champrigaud
