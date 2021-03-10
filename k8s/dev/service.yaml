@@ -31,7 +31,7 @@ spec:
   - host: ydaysdevops2021.ddns.net 
     http:
       paths:
-        - path: "/"
+        - path: "/myapp"
           backend:
             serviceName: app-python
             servicePort: http
