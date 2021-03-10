@@ -14,7 +14,7 @@ spec:
     port: 80
     protocol: TCP 
   type: LoadBalancer
-  loadbalancerIP:
+  
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress 
@@ -31,7 +31,7 @@ spec:
   - host: ydaysdevops2021.ddns.net 
     http:
       paths:
-        - path: "/"
+        - path: "/myapp"
           backend:
             serviceName: app-python
             servicePort: http
