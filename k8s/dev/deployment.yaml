@@ -9,7 +9,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello
+      app: app-python
   template:
     metadata:
       labels:
