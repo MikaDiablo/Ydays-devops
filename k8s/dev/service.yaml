@@ -27,10 +27,10 @@ metadata:
     app: app-python 
 spec:
   rules:
-  - host: 
+  - host: ydaysdevops2021.ddns.net 
     http:
       paths:
         - path: "/"
           backend:
             serviceName: app-python
-            servicePort: 80
+            servicePort: http
