@@ -32,14 +32,14 @@ kind: Service
 metadata:
   name: app-python
   namespace: ci-cd
+  labels:
+    app: app-python
 spec:
-  type: ClusterIP
   selector:
     app: app-python
-    tier: app-python
   ports:
-  - port: 8081
-    targetPort: 80
+  - name: http
+    targetPort: 8081
+    port: 80
     protocol: TCP
-    name: http
-
+  type: LoadBalancer
