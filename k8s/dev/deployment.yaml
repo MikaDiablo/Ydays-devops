@@ -24,3 +24,21 @@ spec:
         - containerPort: 8081
           protocol: TCP
         
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-python
+  namespace: ci-cd
+  labels:
+    app: app-python
+spec:
+  selector:
+    app: app-python
+  ports:
+  - name: http
+    targetPort: 8081
+    port: 80
+    protocol: TCP
+  type: ClusterIP
+
