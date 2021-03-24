@@ -11,28 +11,6 @@ spec:
   ports:
   - name: http
     targetPort: 8081
-    port: 80
-    protocol: TCP 
-  type: Loadbalancer
+    port: 80 
+  type: ClusterIP
   
----
-apiVersion: extensions/v1beta1
-kind: Ingress 
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-  name: app-ingress
-  namespace: ci-cd
-  labels:
-    app: app-python 
-spec:
-  rules:
-  - host: ydaysdevops2021.ddns.net 
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: app-python
-            servicePort: http
