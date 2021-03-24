@@ -3,14 +3,13 @@ kind: Service
 metadata:
   name: app-python
   namespace: ci-cd
-  labels:
-    app: app-python
 spec:
-  selector:
-    app: app-python
   ports:
   - port: 80
     targetPort: 8081
+  selector:
+    app: app-python
+  type: ClusterIP
     
 
 
