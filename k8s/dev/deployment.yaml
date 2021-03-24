@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         app: app-python
+        tier: app-python
     spec:
       containers:
       - name: app-python
@@ -35,6 +36,7 @@ spec:
   type: ClusterIP
   selector:
     app: app-python
+    tier: app-python
   ports:
   - port: 8081
     targetPort: 80
