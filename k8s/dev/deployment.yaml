@@ -35,7 +35,7 @@ metadata:
   labels:
     app: app-python
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 8081
     targetPort: 8081
