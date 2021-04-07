@@ -35,11 +35,10 @@ metadata:
   labels:
     app: app-python
 spec:
+  type: ClusterIP
   selector:
     app: app-python
   ports:
-  - name: http
+  - protocol: TCP
+    port: 8081
     targetPort: 8081
-    port: 80
-    protocol: TCP
-  type: LoadBalancer
