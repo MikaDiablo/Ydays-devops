@@ -19,7 +19,7 @@ pipeline {
         
             script {
 
-                    sh "sed -i 's/sonar.projectVersion=build-number/sonar.projectVersion=${BUILD_NUMBER}/g' app-python.properties"
+                    sh "sed -i 's/sonar.projectVersion=build-number/sonar.projectVersion=${BUILD_NUMBER}/g' app.py"
                     sh "sed -i 's@sonar.branch.name=branch_name@sonar.branch.name=dev@g' sonar-project.properties"
                     withSonarQubeEnv('SonarQube') {
                         echo "===========Performing Sonar Scan============"
