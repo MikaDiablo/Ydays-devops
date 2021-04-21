@@ -19,7 +19,7 @@ spec:
       containers:
       - name: app-python
         # Replace GCLOUD_PROJECT with your project ID
-        image: gcr.io/universal-torch-305711/helloworld-gke:latest
+        image: gcr.io/static-grid-311307/helloworld-gke:latest
         
         ports:
         - containerPort: 8081
