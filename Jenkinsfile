@@ -4,7 +4,7 @@ pipeline {
         PROJECT_ID = "static-grid-311307"
         CLUSTER_NAME = 'ydays'
         IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BUILD_NUMBER}"
-        LOCATION = 'us-west1-b'
+        LOCATION = 'europe-west1-b'
         CREDENTIALS_ID = 'gke-json'
     }
     stages {
