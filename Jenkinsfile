@@ -16,7 +16,7 @@ pipeline {
         stage('Build and push image with Container Builder') {
       steps {
           script {
-          sh "gcloud builds submit --tag gcr.io/static-grid-311307/helloworld-gke:latest ."
+          sh "gcloud builds submit --tag gcr.io/static-grid-311307/helloworld-gke:latest"
         }
       }
     }
@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
                 sh("sed -i.bak '#docker pull gcr.io/static-grid-311307/helloworld-gke:latest' k8s/dev/*.yaml")
-                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'static-grid-311307', clusterName: 'ydays' , zone: 'europe-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'gke-json', verifyDeployments: true])
+                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'static-grid-311307', clusterName: 'ydays' , zone: 'europe-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'gke-json', verifyDeployments: false])
                 
 
             }
