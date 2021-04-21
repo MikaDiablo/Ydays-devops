@@ -16,14 +16,14 @@ pipeline {
         stage('Build and push image with Container Builder') {
       steps {
           script {
-          sh "gcloud builds submit --tag gcr.io/universal-torch-305711/helloworld-gke:latest ."
+          sh "gcloud builds submit --tag gcr.io/static-grid-311307/helloworld-gke:latest ."
         }
       }
     }
         
         stage('Deploy to GKE') {
             steps{
-                sh("sed -i.bak '#docker pull gcr.io/universal-torch-305711/helloworld-gke:latest' k8s/dev/*.yaml")
+                sh("sed -i.bak '#docker pull gcr.io/static-grid-311307/helloworld-gke:latest' k8s/dev/*.yaml")
                 step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'static-grid-311307', clusterName: 'ydays' , zone: 'us-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'gke-json', verifyDeployments: true])
                 
 
