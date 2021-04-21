@@ -1,11 +1,11 @@
 pipeline {
     agent any
     environment {
-        PROJECT_ID = "universal-torch-305711"
-        CLUSTER_NAME = 'cluster-ydays'
+        PROJECT_ID = "static-grid-311307"
+        CLUSTER_NAME = 'ydays'
         IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BUILD_NUMBER}"
         LOCATION = 'us-west1-b'
-        CREDENTIALS_ID = 'Kubernetes-ydays'
+        CREDENTIALS_ID = 'gke-json'
     }
     stages {
         stage("Checkout code") {
@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
                 sh("sed -i.bak '#docker pull gcr.io/universal-torch-305711/helloworld-gke:latest' k8s/dev/*.yaml")
-                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'universal-torch-305711', clusterName: 'cluster-ydays' , zone: 'us-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'Kubernetes-ydays', verifyDeployments: true])
+                step([$class: 'KubernetesEngineBuilder', namespace:'ci-cd', projectId: 'static-grid-311307', clusterName: 'ydays' , zone: 'us-west1-b', manifestPattern: 'k8s/dev/', credentialsId: 'gke-json', verifyDeployments: true])
                 
 
             }
