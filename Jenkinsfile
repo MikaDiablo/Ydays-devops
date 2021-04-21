@@ -14,21 +14,7 @@ pipeline {
             }
         }
         
-        stage("SonarQube Analysis") {
-    steps{
-        
-            script {
 
-                    sh "sed -i 's/sonar.projectVersion=build-number/sonar.projectVersion=${BUILD_NUMBER}/g' app.py"
-                    sh "sed -i 's@sonar.branch.name=branch_name@sonar.branch.name=dev@g' app.py"
-                    withSonarQubeEnv('SonarQube') {
-                        echo "===========Performing Sonar Scan============"
-                        def sonarqubeScannerHome = tool 'SonarQube Scanner 3.3.0.1492'
-                        sh "${sonarqubeScannerHome}/bin/sonar-scanner"
-                    }
-        }
-    }
-}
         stage('Build and push image with Container Builder') {
       steps {
           script {
